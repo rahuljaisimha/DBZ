@@ -7,14 +7,16 @@ using std::string;
 struct Attack{
 	int charges;
 	int damage;
+	int effect;
 
 	string name;
 
 	Attack() = default;
-	Attack(int _charges, int _damage, string _name){
+	Attack(int _charges, int _damage,int _effect, string _name){
 		charges = _charges;
 		damage = _damage;
 		name = _name;
+		effect = _effect
 	}
 };
 
