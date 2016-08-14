@@ -1,3 +1,6 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
 #include <string>
 
 using std::string;
@@ -49,3 +52,4 @@ struct Character{
 	}
 
 };
+#endif // ifndef CHARACTER_H

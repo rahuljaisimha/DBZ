@@ -23,6 +23,9 @@ TypeList is a list of classes.
  	returns boolean for whether or not typelist has T as one of its types
  */
 
+#ifndef TYPELIST_H
+#define TYPELIST_H
+
 #include <tuple>
 
 using std::tuple;
@@ -70,3 +73,5 @@ struct TypeList
 		return has_type<T, TypeList<Args...>>::contains;
 	}
 };
+
+#endif //ifndef TYPELIST_H

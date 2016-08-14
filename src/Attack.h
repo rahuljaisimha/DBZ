@@ -1,6 +1,10 @@
+#ifndef ATTACK_H
+#define ATTACK_H
+
 #include <string>
 #include "Character.h"
 #include <iostream>
+#include <memory>
 
 # define CHARACTER_OF decltype
 
@@ -87,38 +91,42 @@ public:
 	}
 };
 
+
+// Messiest part of the code. Find a way to refactor this function
 template<typename T>
-Attack* getAttack(T player, int index){
+std::shared_ptr<Attack> getAttack(T player, int index){
 	if(index == 0){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<0>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 1){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<1>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 2){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<2>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 3){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<3>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 4){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<4>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 5){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<5>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	} else if(index == 6){
 		using Att = typename CHARACTER_OF(player)::Attacks::template type<6>;
-		Att* m = new Att();
+		std::shared_ptr<Attack> m = std::make_shared<Att>();
 		return m;
 	}
 	using Att = typename CHARACTER_OF(player)::Attacks::template type<0>;
-	Att* m = new Att();
+	std::shared_ptr<Attack> m = std::make_shared<Att>();
 	return m;
 }
+
+#endif //ifndef ATTACK_H

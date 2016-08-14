@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "TypeList.h"
 #include "Attack.h"
+#include "Character.h"
 
 # define CHARACTER_OF decltype
 
@@ -26,9 +27,13 @@ public:
 
 int probabilities[] = {20, 10, 8, 6, 4, 8, 5};
 
-static constexpr int probTotal = 61;
+static int probTotal = 61;
 
 int main(){
+
+	/* initialize random seed: */
+	srand (time(NULL));
+
 	Goku player{};
 	Goku enemy{};
 
@@ -40,7 +45,7 @@ int main(){
 		std::cout<<"Use an attack: \n";
 		int i = 0;
 		while(i < CHARACTER_OF(player)::Attacks::length){
-			Attack* m = getAttack(player, i);
+			std::shared_ptr<Attack> m = getAttack(player, i);
 			std::cout << i << "\t" << m->name << "\n";
 			i++;
 		}
@@ -48,7 +53,7 @@ int main(){
 		// obtain input
 		int in;
 		std::cin >> in;
-		Attack* playerAttack = getAttack(player, in);
+		std::shared_ptr<Attack> playerAttack = getAttack(player, in);
 
 		// check if enough charges
 		if(playerAttack->charges > player.charges){
@@ -58,19 +63,23 @@ int main(){
 		}
 
 		// "AI"
+		probabilities[5] = player.charges;
+		probabilities[6] = player.charges;
+		probTotal = 48 + probabilities[5] + probabilities[6];
+
 		int r = (rand() % probTotal) + 1;
 		int aiIndex = -1;
 		while(r > 0){
 			aiIndex++;
 			r -= probabilities[aiIndex];
 		}
-		Attack* enemyAttack = getAttack(enemy, aiIndex);
+		std::shared_ptr<Attack> enemyAttack = getAttack(enemy, aiIndex);
 		while(enemyAttack->charges > enemy.charges){
 			r = (rand() % probTotal) + 1;
 			aiIndex = -1;
 			while(r > 0){
-				r -= probabilities[aiIndex];
 				aiIndex++;
+				r -= probabilities[aiIndex];
 			}
 			enemyAttack = getAttack(enemy, aiIndex);
 		}
