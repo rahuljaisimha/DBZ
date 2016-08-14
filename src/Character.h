@@ -5,6 +5,7 @@ using std::string;
 struct Character{
 	int hp;
 	int charges = 0;
+	int effect = 0;
 
 	bool blocking = false;
 	bool dodging = false;
@@ -16,6 +17,11 @@ struct Character{
 	Character(int _hp, string _name){
 		hp = _hp;
 		name = _name;
+	}
+	Character(int _hp, int _effect, string _name){
+		hp = _hp;
+		name = _name;
+		effect = _effect;
 	}
 	int getHp(){
 		return hp;
